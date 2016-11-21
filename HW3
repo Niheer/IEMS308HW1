@@ -1,0 +1,983 @@
+
+##Task1: Company names
+
+##R code for attempting to define training and test sets
+
+#CeoTrain = read.csv(file="training/ceo.csv", header = FALSE, stringsAsFactors = FALSE)
+# ceoTrain = unique(ceoTrain)
+# ceoTrain = unite(ceoTrain,fullname,V1:V2, sep = " ")
+# companiesTrain = read.csv(file="training/companies.csv", header = FALSE, stringsAsFactors = FALSE)
+# companiesTrain = unique(companiesTrain)
+# percentageTrain = read.csv(file="training/percentage.csv", header = FALSE, stringsAsFactors = FALSE)
+# percentageTrain = unique(percentageTrain)
+
+
+# write.csv(ceoTrain,file="/niheer/ceoTrain.csv",sep=",",quote=TRUE,row.names=FALSE,na="")
+
+
+###merging articles
+#dir2014 = paste(getwd(),"/2014sub1",sep="")
+#docs2014 = Corpus(DirSource(dir2014),readerControl = list(language=NULL))
+#dir2013 = paste(getwd(),"/2013sub1",sep="")
+#docs2013 = Corpus(DirSource(dir2013),readerControl = list(language=NULL))
+
+
+#---------------------------- annotation ———————————
+#sentAnnotator = Maxent_Sent_Token_Annotator()
+#wordAnnotator = Maxent_Word_Token_Annotator()
+#postAnnotator = Maxent_POS_Tag_Annotator()
+
+
+#train = docs2013
+#test = docs2014
+#train  = as.String(train)
+
+
+#s = annotate(train,sentAnnotator)
+#s1 = train[s]
+
+#--------------- NAIVE BAYES CLASSIFIER ---------------------------------
+#toTrain = as.matrix(toTrain)
+#toTrain[,c(3:5)] = as.numeric(toTrain[,c(3:5)])
+#classifier = naiveBayes(toTrain[,4:5], as.factor(toTrain[,3]))
+
+###Python
+import nltk
+from nltk.tokenize import word_tokenize
+import re
+import os
+import glob
+import textblob
+import pandas
+import random
+import string
+import textblob
+from nltk.tag import pos_tag
+from textblob import TextBlob
+from numpy import genfromtxt
+
+#def findWholeWord(w):
+    #return re.compile(r'\b({0})\b'.format(w), flags=re.IGNORECASE).search
+del f
+os.chdir("/Users/niheer/Desktop/trainingset")
+with open("companies.ascii.txt", 'r') as f:
+    ceo_data=f.read()
+del comp_data
+comp_data=[]
+comp_data=ceo_data.split('\n')
+
+os.chdir("/Users/niheer/Desktop/trainingset")
+with open("NotCompanyoutput.ascii.txt", 'r') as f:
+    ceo_data=f.read()
+ncomp_data=[]
+ncomp_data=ceo_data.split('\n')
+
+
+
+
+non_comp=[]
+num_to_select=500                       
+rand_sample=random.sample(ncomp_data,200)
+for i in rand_sample:
+    if i not in comp_data:
+        non_comp.append(i)
+rand_sample=random.sample(NNP_f,300)
+while i 
+for i in rand_sample:
+    if i not in comp_data:
+        non_comp.append(i)
+non_comp = [''.join(c for c in s if c not in string.punctuation) for s in non_comp]            
+non_comp = [s for s in non_comp if s]
+
+del trainingset_comp
+trainingset_comp=[]
+for i in comp_data:
+    for j in sent_tok:
+        if i in j and j not in trainingset_comp:
+            trainingset_comp.append(j)
+
+del trainingset_ncomp           
+trainingset_ncomp=[]
+
+del rand_sample
+rand_sample =[]
+rand_sample=random.sample(sent_tok,50000)
+
+for i in rand_sample: 
+    if i not in trainingset_comp:
+        trainingset_ncomp.append(i)
+	temp_1=[]
+nc_trainset_final =[]
+nc_trainset_final = list(set(trainingset_ncomp))
+for j in comp_data:
+    for i in nc_trainset_final:
+        if j in i:
+            temp_1=i
+            nc_trainset_final.remove(temp_1)
+            
+            non_ceo=[]
+list1=[]
+proper_nouns=[]
+sentence_list=[]
+sent_tok=[]
+NNP_f=[]
+word_tokenizer_list=word_tokenize(i)
+from nltk.corpus import stopwords
+stop=stopwords.words('english')
+nltk.download('punkt')
+from nltk.tokenize import sent_tokenize
+from nltk.tokenize import word_tokenize
+os.chdir("/Users/niheer/Desktop")
+for filename in glob.iglob('*ascii.txt'):
+    with open(filename,'r') as f:
+        sample = f.read()
+        tagged_sentence = pos_tag(sample.split())
+        proper_nouns.extend(tagged_sentence)
+     
+        os.chdir("/Users/niheer/Desktop")
+        for filename in glob.iglob('*ascii.txt'):
+            with open(filename,'r') as f:
+                sample1 = f.read()
+                sentence_list=sent_tokenize(sample1)
+                for i in sentence_list:
+                    sent_tok.append(i)
+                    word_tokenizer_list=word_tokenize(i)
+                    if word_tokenizer_list not in stopwords.words('english'):
+                        for j in word_tokenizer_list:
+                            list1.extend(j)
+
+NNP_f = [word for word,pos in proper_nouns if pos == 'NNP']
+ 
+            
+
+del feature_1
+feature_1=[]
+for i in trainingset_comp:
+    if "inc" in i.lower():
+        feature_1.append(1)
+        continue
+    if "ltd" in i.lower():
+        feature_1.append(1)
+        continue
+    if "co" in i.lower():
+        feature_1.append(1)
+        continue
+    if "corp" in i.lower():
+        feature_1.append(1)
+        continue
+    if "company" in i.lower():
+        feature_1.append(1)
+        continue
+    if "internet co" in i.lower():
+        feature_1.append(1)
+        continue
+    else:
+        feature_1.append(0)
+
+ ##feature_2  
+del feature_2
+feature_2=[]
+for i in trainingset_comp:
+     if "sale" in i.lower():
+        feature_2.append(1)
+        continue
+     if "business" in i.lower():
+        feature_2.append(1)
+        continue
+     if "revenue" in i.lower():
+        feature_2.append(1)
+        continue
+     if "profit" in i.lower():
+        feature_2.append(1)
+        continue
+     if "shareholder" in i.lower():
+        feature_2.append(1)
+        continue
+     else:
+        feature_2.append(0)
+
+##feature 1a: CEO not in the sentence
+del feature_1a
+feature_1a=[]
+for i in trainingset_ncomp:
+    if "inc" in i.lower():
+        feature_1a.append(1)
+        continue
+    if "ltd" in i.lower():
+        feature_1a.append(1)
+        continue
+    if "co" in i.lower():
+        feature_1a.append(1)
+        continue
+    if "corp" in i.lower():
+        feature_1a.append(1)
+        continue
+    if "plc" in i.lower():
+        feature_1a.append(1)
+        continue
+    if "company" in i.lower():
+        feature_1a.append(1)
+        continue
+    if "internet co" in i.lower():
+        feature_1a.append(1)
+        continue
+    if "multinational" in i.lower():
+        feature_1a.append(1)
+        continue
+    else:
+        feature_1a.append(0)
+
+##feature_2a
+del feature_2a
+feature_2a=[]
+for i in trainingset_ncomp:
+     if "sale" in i.lower():
+        feature_2a.append(1)
+        continue
+     if "business" in i.lower():
+        feature_2a.append(1)
+        continue
+     if "franchise" in i.lower():
+        feature_2a.append(1)
+        continue
+     if "revenue" in i.lower():
+        feature_2a.append(1)
+        continue
+     if "profit" in i.lower():
+        feature_2a.append(1)
+        continue
+     if "shareholder" in i.lower():
+        feature_2a.append(1)
+        continue
+     else:
+        feature_2a.append(0)
+##feature 3
+del feature_3
+feature_3=[]
+a=[]
+for i in trainingset_comp:
+    a=sum(1 for c in i if c.isupper())
+    if a>=10:				##check if more than 10 capital letters
+       feature_3.append(1)
+       continue
+    if a<10:					
+        feature_3.append(0)
+
+del feature_3a
+feature_3a=[]
+a=[]
+for i in trainingset_ncomp:
+    a=sum(1 for c in i if c.isupper())
+    if a>=10:
+       feature_3a.append(1)
+       continue
+    if a<10:
+        feature_3a.append(0)
+        
+del feature_4
+feature_4=[]
+for j in trainingset_comp:
+  tagged_sentence = pos_tag(j.split())
+  NNP_f = [word for word,pos in tagged_sentence if pos == 'NNP']
+  if len(NNP_f)>=3:
+      feature_4.append(1)
+      continue
+  else:
+      feature_4.append(0)
+      
+
+del feature_4a
+feature_4a=[]
+for j in trainingset_ncomp:
+  tagged_sentence = pos_tag(j.split())
+  NNP_f = [word for word,pos in tagged_sentence if pos == 'NNP']
+  if len(NNP_f)>=3:
+      feature_4a.append(1)
+      continue
+  else:
+      feature_4a.append(0)
+
+
+
+
+final_feature_1=[]
+final_feature_1.extend(feature_1)
+final_feature_1.extend(feature_1a)
+
+final_feature_2=[]
+final_feature_2.extend(feature_2)
+final_feature_2.extend(feature_2a)
+
+final_feature_3=[]
+final_feature_3.extend(feature_3)
+final_feature_3.extend(feature_3a)
+
+final_feature_4=[]
+final_feature_4.extend(feature_4)
+final_feature_4.extend(feature_4a)
+
+
+del final_ceo
+final_ceo=[1]*len(feature_3)
+final_ceo.extend([0]*len(feature_3a))
+
+##append feature lists for training data for export to R
+del l
+l = []
+l.append(final_ceo)
+l.append(final_feature_1)
+l.append(final_feature_2)
+l.append(final_feature_3)
+
+
+import numpy
+import numpy as np
+x = np.array(l)
+x=x.T
+##Export to R (See R code)
+
+
+
+import csv
+
+with open("comp_endlich.csv", "w") as f:
+    writer = csv.writer(f)
+    writer.writerows(x)
+
+##test
+##do features for entire text corpus
+del feature_1t
+feature_1t=[]
+for i in sent_tok:
+    if "inc" in i.lower():
+        feature_1t.append(1)
+        continue
+    if "ltd" in i.lower():
+        feature_1t.append(1)
+        continue
+    if "co" in i.lower():
+        feature_1t.append(1)
+        continue
+    if "corp" in i.lower():
+        feature_1t.append(1)
+        continue
+    if "plc" in i.lower():
+        feature_1t.append(1)
+        continue
+    if "company" in i.lower():
+        feature_1t.append(1)
+        continue
+    if "internet co" in i.lower():
+        feature_1t.append(1)
+        continue
+    if "multinational" in i.lower():
+        feature_1t.append(1)
+    else:
+        feature_1t.append(0)
+
+    
+del feature_2t
+feature_2t=[]
+for i in sent_tok:
+     if "sale" in i.lower():
+        feature_2t.append(1)
+        continue
+     if "business" in i.lower():
+        feature_2t.append(1)
+        continue
+     if "franchise" in i.lower():
+        feature_2t.append(1)
+        continue
+     if "revenue" in i.lower():
+        feature_2t.append(1)
+        continue
+     if "profit" in i.lower():
+        feature_2t.append(1)
+        continue
+     if "shareholder" in i.lower():
+        feature_2t.append(1)
+        continue
+     else:
+        feature_2t.append(0)
+
+del feature_3t
+feature_3t=[]
+a=[]
+for i in sent_tok:
+    a=sum(1 for c in i if c.isupper())
+    if a>=10:
+       feature_3t.append(1)
+       continue
+    if a<10:
+        feature_3t.append(0)
+        
+
+del l
+l = []
+l.append(feature_1t)
+l.append(feature_2t)
+l.append(feature_3t)
+
+del x
+import numpy as np
+x = np.array(l)
+x=x.T
+
+
+
+import csv
+
+with open("comp_training.csv", "w") as f:
+    writer = csv.writer(f)
+    writer.writerows(x)
+##write features matrix out into csv for import into R
+
+del f
+os.chdir("/Users/niheer/Desktop/trainingset")
+with open("comp1_datwars.ascii.txt", 'r') as f:
+    company_location=f.read()
+
+sentences_comp=[]
+company_location=company_location.split('\n')
+company_tok=word_tokenize(company_location)
+str1 = ''.join(company_location)
+for i in range(1,44167):
+    a=int(float(company_location[i]))
+    sentences_comp.append(sent_tok[a])
+##find sentences that are classified as 1
+
+del list2
+list2=[]
+for i in sentences_comp:
+    list2.append(re.findall('([A-Z][\w-]*(?:\s+[A-Z][\w-]*)+)', i))
+##take out nouns that start with capital letter and append list2
+
+list2 = [x for x in list2 if x != []]
+import csv
+##get rid of spaces
+
+with open("comp_results.csv", "w") as f:
+    writer = csv.writer(f)
+    writer.writerows(list2)
+
+for line in list1:
+        line = line.rstrip('\n' + '').split(':')
+        # If line is just empty
+        if line != ['']:
+
+            
+    #CODE IN R For Random forest
+fit <- randomForest(as.factor(V1)~V2 + V3 + V4 + V5, importance = TRUE, data=output2) ##fit random forest
+fit$err.rate
+colnames(output5) <- c("V2", "V3", "V4", "V5")
+results = predict(fit, output5)
+endstation<-as.data.frame(results)
+endstation
+head(endstation, n=10) ##endstation gives location (basically order of observation
+##classified as 1
+endstation$sentence<-as.numeric(rownames(endstation))
+L=endstation$results==1
+head(L, n=20)
+end<-endstation[L,]
+head(endlich, n=20)
+write.csv(end$sentence, file = "Data.csv")
+        
+            
+            
+            
+            
+            
+            
+            
+            
+
+
+##part2: CEO 
+
+## following done in R
+  featuresData = matrix('',0,5)
+  for (i in 1:nrow(sentences))
+   {
+     words = scan_tokenizer(sentences[i,2]) # tokenizing sentence i
+     #name = scan_tokenizer(sentences[i,1]) # tokenize the name
+     #lname = name[2]
+     # Look at bigrams and find chief executive
+     bigrams = ngrams(words,2)
+     bigrams = vapply(bigrams, paste, "", collapse = " ")
+     
+     #which(words=="CEO") = posCEO # position of CEO
+     #which(words==lname) = poslname # position of the last name
+     posChief = which(bigrams=="Chief Executive") # position of Chief Executive
+     posFullname = which(bigrams==sentences[i,1]) # position of the full name
+     beforeFullname = bigrams[posFullname-1] # extracting the bigram that comes right before the fullname
+     wordsBeforeFullname = scan_tokenizer(beforeFullname) # tokenizing into words
+     
+     if ("CEO" %in% words |"(CEO)" %in% words)
+     {
+       if ("CEO" %in% wordsBeforeFullname | "(CEO)" %in% wordsBeforeFullname) # Checking if CEO or chiefExec comes before name
+       {
+       newrow = c(sentences[i,],"1","1")
+       featuresData = rbind(featuresData,newrow)
+       }
+       else
+       {
+         newrow = c(sentences[i,],"1","0")
+         featuresData = rbind(featuresData,newrow)
+       }
+     }
+     
+     else if ("Chief Executive" %in% bigrams)
+     {
+       if (posFullname == (posChief+2)) #chiefExec comes before name : +2 because "Chief Executive", "Executive Tim, "Tim Cook" 
+
+
+
+#def findWholeWord(w):
+  
+
+
+##Matrix = [[0 for x in range(2000)] for x in range(20000)]
+##Matrix=
+non_ceo=[]
+list1=[]
+proper_nouns=[]
+sentence_list=[] ##Create empty lists for future storage
+sent_tok=[]
+NNP_f=[]
+word_tokenizer_list=word_tokenize(i)
+from nltk.corpus import stopwords
+stop=stopwords.words('english')	##import stop words
+nltk.download('punkt')
+from nltk.tokenize import sent_tokenize
+from nltk.tokenize import word_tokenize
+os.chdir("/Users/niheer/Desktop/2013")
+for filename in glob.iglob('*ascii.txt'):
+    with open(filename,'r') as f:
+        sample = f.read()
+        tagged_sentence = pos_tag(sample.split())
+        proper_nouns.extend(tagged_sentence)	#part of speech tagger
+    
+        os.chdir("/Users/niheer/Desktop/2013")
+        for filename in glob.iglob('*ascii.txt'):
+            with open(filename,'r') as f:
+                sample1 = f.read()
+                sentence_list=sent_tokenize(sample1)
+                for i in sentence_list:
+                    sent_tok.append(i)
+                    word_tokenizer_list=word_tokenize(i)
+                    if word_tokenizer_list not in stopwords.words('english'):
+                        for j in word_tokenizer_list:
+                            list1.extend(j)
+##remove stop words and sentence and word tokenize entire corpus
+NNP_f = [word for word,pos in proper_nouns if pos == 'NNP']
+ 
+del non_ceo
+non_ceo=[]
+num_to_select=500                       
+rand_sample=random.sample(list1,num_to_select)	##extract random words for non_ceo training data
+for i in rand_sample:
+    if i not in ceo_data:
+        non_ceo.append(i)
+
+rand_sample1=random.sample(NNP_f,num_to_select)
+for i in rand_sample1:
+    if i not in ceo_data and i not in non_ceo and i not in stopwords.words('english') :
+        non_ceo.append(i)
+non_ceo = [''.join(c for c in s if c not in string.punctuation) for s in non_ceo]            
+non_ceo = [s for s in non_ceo if s]   
+print(non_ceo)  
+#extract proper nouns for non_ceo training data
+del trainingset_data
+del name_non_ceo
+
+name_ceo=[]
+trainingset_data2=[]
+for i in ceo_array:
+    for j in sent_tok:
+        if i in j:
+            name_ceo.append(i)
+            trainingset_data2.append(j) #match sentences that have ceo in them
+            
+trainingset_data=[]
+name_non_ceo=[]
+for i in non_ceo: 
+    for j in sent_tok:
+        if i in j:
+            trainingset_data.append(j)
+            name_non_ceo.append(i)
+
+temp_1=[]
+nc_trainset_final =[]
+nc_trainset_final = list(set(trainingset_data))
+for j in ceo_array:
+    for i in nc_trainset_final:
+        if j in i:
+            temp_1=i
+            nc_trainset_final.remove(temp_1) #concatenate all sentences of random #words,proper nouns and ceos to get training data
+            
+trainingset_data_nc=[]           
+trainingset_data_nc=random.sample(nc_trainset_final,50000)
+
+trainingset_data_ceo=[]
+trainingset_data_ceo=trainingset_data2
+
+len(name_ceo)
+
+
+            
+
+
+
+##feature 1: CEO in sentence ##features to examine sentences of in training set
+del feature_1
+feature_1=[]
+for i in trainingset_data_ceo:
+    if "CEO" in i:
+        feature_1.append(1)
+        continue
+    if "ceo" in i:
+        feature_1.append(1)
+        continue
+    if "CIO" in i:
+        feature_1.append(1)
+        continue
+    if "CFO" in i:
+        feature_1.append(1)
+        continue
+    if "CTO" in i:
+        feature_1.append(1)
+        continue
+    if "CCO" in i:
+        feature_1.append(1)
+        continue
+    if "Chief Executive" in i:
+        feature_1.append(1)
+        continue
+    if "chief executive" in i:
+        feature_1.append(1)
+        continue
+    else:
+        feature_1.append(0)
+##feature_xa alway for non_Ceo part of training data
+##feature 1a: CEO in sentence
+del feature_1a
+feature_1a=[]
+for i in trainingset_data_nc:
+    if "CEO" in i:
+        feature_1a.append(1)
+        continue
+    if "ceo" in i:
+        feature_1a.append(1)
+        continue
+    if "CIO" in i:
+        feature_1a.append(1)
+        continue
+    if "CFO" in i:
+        feature_1a.append(1)
+        continue
+    if "CTO" in i:
+        feature_1a.append(1)
+        continue
+    if "CCO" in i:
+        feature_1a.append(1)
+        continue
+    if "Chief Executive" in i:
+        feature_1a.append(1)
+        continue
+    if "chief executive" in i:
+        feature_1a.append(1)
+        continue
+    else:
+        feature_1a.append(0)
+
+##feature_2
+feature_2=[]
+a=[]
+for i in trainingset_data_ceo:
+    a=sum(1 for c in i if c.isupper())
+    if a>=7:
+       feature_2.append(1)
+       continue
+    if a<7:
+        feature_2.append(0)
+
+#feature_2a
+feature_2a=[]
+a=[]
+for i in trainingset_data_nc:
+    a=sum(1 for c in i if c.isupper())
+    if a>=7:
+       feature_2a.append(1)
+       continue
+    if a<7:
+        feature_2a.append(0)
+ 
+#feature_3       
+del feature_3
+feature_3=[]
+for j in trainingset_data_ceo:
+    if "head of"in j:
+        feature_3.append(1)
+        continue
+    if "Head of"in j:
+        feature_3.append(1)
+        continue
+    if "department" in j:
+        feature_3.append(1)
+        continue
+    if "Department" in j:
+        feature_3.append(1)
+        continue
+    if "staff" in j:
+        feature_3.append(1)
+        continue
+    if "Staff" in j:
+        feature_3.append(1)
+        continue
+    else:
+        feature_3.append(0)
+#feature_3a
+del feature_3a
+feature_3a=[]
+for j in trainingset_data_nc:
+    if "head of"in j:
+        feature_3a.append(1)
+        continue
+    if "Head of"in j:
+        feature_3a.append(1)
+        continue
+    if "department" in j:
+        feature_3a.append(1)
+        continue
+    if "Department" in j:
+        feature_3a.append(1)
+        continue
+    if "staff" in j:
+        feature_3a.append(1)
+        continue
+    if "Staff" in j:
+        feature_3a.append(1)
+        continue
+    if "company" in j:
+        feature_3a.append(1)
+        continue
+    if "Company" in j:
+        feature_3a.append(1)
+        continue
+    else:
+        feature_3a.append(0)
+
+#
+final_feature_1=[]
+final_feature_1.extend(feature_1)
+final_feature_1.extend(feature_1a)
+
+final_feature_2=[]
+final_feature_2.extend(feature_2)
+final_feature_2.extend(feature_2a)
+
+final_feature_3=[]
+final_feature_3.extend(feature_3)
+final_feature_3.extend(feature_3a)
+
+
+##append features to create features matrix
+
+)
+
+del l
+l = []
+l.append(final_ceo)
+l.append(final_feature_1)
+l.append(final_feature_2)
+l.append(final_feature_3)
+l.append(final_feature_4)
+
+del(x)
+import numpy as np
+x = np.array(l)
+x=x.T
+x
+
+#transpose matrix with features to export
+import csv
+
+with open("output2.csv", "w") as f:
+    writer = csv.writer(f)
+    writer.writerows(x)
+
+##test
+## see R code for processing of features
+feature_1t=[] #repeat feature calculation by sentence 
+for i in sent_tok:
+    if "CEO" in i:
+        feature_1t.append(1)
+        continue
+    if "ceo" in i:
+        feature_1t.append(1)
+        continue
+    if "CIO" in i:
+        feature_1t.append(1)
+        continue
+    if "CFO" in i:
+        feature_1t.append(1)
+        continue
+    if "CTO" in i:
+        feature_1t.append(1)
+        continue
+    if "CCO" in i:
+        feature_1t.append(1)
+        continue
+    if "Chief Executive" in i:
+        feature_1t.append(1)
+        continue
+    if "chief executive" in i:
+        feature_1t.append(1)
+        continue
+    else:
+        feature_1t.append(0)
+
+#feature_2
+del feature_2t
+feature_2t=[]
+a=[]
+for i in sent_tok:
+    a=sum(1 for c in i if c.isupper())		##check for number of capital letters
+    if a>=7:
+       feature_2t.append(1)
+       continue
+    if a<7:
+        feature_2t.append(0)
+
+#feature_3
+del feature_3t
+feature_3t=[]
+for j in sent_tok:
+    if "head of"in j:
+        feature_3t.append(1)
+        continue
+    if "Head of"in j:
+        feature_3t.append(1)
+        continue
+    if "department" in j:
+        feature_3t.append(1)
+        continue
+    if "Department" in j:
+        feature_3t.append(1)
+        continue
+    if "staff" in j:
+        feature_3t.append(1)
+        continue
+    if "Staff" in j:
+        feature_3t.append(1)
+        continue
+    else:
+        feature_3t.append(0)
+
+
+
+del final_ceo
+final_ceot=[]
+final_ceot=[1]*len(feature_4t)
+
+
+del l
+l = []
+l.append(feature_1t)
+l.append(feature_2t)
+l.append(feature_3t)
+l.append(feature_4t)
+
+#append features matrix for entire data set
+
+
+import numpy as np
+x = np.array(l)
+x=x.T
+#transpose matrix
+
+
+import csv
+
+with open("output5.csv", "w") as f:
+    writer = csv.writer(f)
+    writer.writerows(x)
+##write out array to insert into R
+del f
+os.chdir("/Users/niheer/Desktop/trainingset")
+with open("myData.ascii.txt", 'r') as f:
+    ceo_location=f.read()
+
+##write in ceo_location from R. This stores what sentences have been classified as #1
+ceo_location=ceo_location.split('\n')
+ceo_tok=word_tokenize(ceo_location)
+
+
+del j
+del list
+list=[]
+list1=[]
+j=[]
+for i in ceo_tok:
+    j=float(i)
+    list.append(sent_tok[int(j)])
+
+
+del list1
+list1=[]
+for i in list:  
+    list1.append(re.findall('([A-Z][\w-]*(?:\s+[A-Z][\w-]*))', i))
+##regexpressiosn to find words with capital letters not after period
+
+list1.remove([])
+list2 = [x for x in list1 if x != []]
+##remove spaces
+
+for line in list1:
+        line = line.rstrip('\n' + '').split(':')
+        # If line is just empty
+        if line != ['']:
+
+import csv
+
+with open("ceo_fertig.csv", "w") as f:
+    writer = csv.writer(f)
+    writer.writerows(list2)
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+##Part 3: Percentages
+library(tm)
+install.packages('regexr')
+library(openNLP)
+library(regexr)
+#load packages
+
+load <- DirSource('/Users/niheer/Desktop/2013')
+text <- VCorpus(load,readerControl = list(language='en'))
+tdm <- DocumentTermMatrix(text)
+##create document term matrix
+
+
+##following is regexpr
+percent <- regexpr("([0-9]*.?[0-9]*%)|([0-9]+.?[0-9]*( percent))|(((third)|(quarter)|(half)|(one)|(two)|(three)|(four)|(five)|(six)|(seven)|(eight)|(nine)|(ten))( percent))|(((third)|(quarter)|(half)|(one)|(two)|(three)|(four)|(five)|(six)|(seven)|(eight)|(nine)|(ten))(%))", tdm$dimnames$Terms)
+percent1 <- regmatches(textdm$dimnames$Terms, percent)
+write.csv(per, "/Users/niheer/Desktop/percents_final.csv")
+
+
+
+
+
+
+
+
+
+     
+     
