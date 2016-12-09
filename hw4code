@@ -1,0 +1,226 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Dec  6 16:58:53 2016
+
+@author: niheer
+"""
+
+import pandas as pd
+import nltk
+import csv
+import re
+import os
+import glob
+import io
+import cPickle as pickle
+from nltk import word_tokenize
+from nltk import sent_tokenize
+from nltk import pos_tag
+import operator
+from sklearn.feature_extraction.text import TfidfTransformer
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+from PyDictionary import PyDictionary dictionary=PyDictionary()
+from nltk.corpus import wordnet
+from nltk.corpus import stopwords
+import string
+from nltk.tokenize import wordpunct_tokenize as tokenize from nltk.stem.porter import PorterStemmer
+from sklearn.feature_extraction.text import TfidfVectorizer from scipy.spatial.distance import cosine
+
+def read_from_files(directory,corpus):
+
+ 
+sample1=[] 
+for filename in glob.iglob('*ascii.txt'):
+    with open(filename,'r') as f: sample1.append(f.read())
+    os.chdir("/Users/niheershah/Desktop/2014") for filename in glob.iglob('*ascii.txt'):
+        with open(filename,'r') as f: sample1.append(f.read())
+
+   for file in glob.iglob('*ascii.txt'):
+       date = file.split('.')[0]
+       with open(file,'r') as f:
+           content = f.read()
+           corpus[date] = content
+
+
+## exracting keyword function
+def getKeyWords(question):
+   words = word_tokenize(question,language='english')
+   tagger = nltk.pos_tag(words)
+
+###TYPE1
+words=[]
+company=input("input:")
+count=0 
+for i in sample1:
+    if company.lower() in i.lower(): count=1
+    count_list.append(count) count=0
+    count=0 count_list1=[]
+for i in count_list:
+    count=count+1 if i==1:
+        count_list1.append(count)
+￼a=0 
+for i in count_list1:
+    a=int(i) dataset1.append(sample1[a-1])
+sentence_list=[] 
+sentence_list.append(sent_tokenize(i))
+count=0 count_list1=[] finallist=[]
+for i in sentence_list:
+    for j in i:
+        if company.lower() in j.lower():
+count=count+1 count_list1.append(count) count=0
+indexlist=[] 
+a=count_list1.index(max(count_list1)) count_list1[a]=0
+indexlist.append(a)
+ceoset=[]
+for i in indexlist:
+    for j in sentence_list[i]:
+        if company.lower() in j.lower() and j not in ceoset:
+            ceoset.append(j)
+            ceoset=list(set(ceoset))
+            words=["'s"+"ceo", "'s"+"founder", "executive", "chief", "ceo", "president"] ceoset1=[]
+for i in ceoset:
+    if any(x in i.lower() for x in words): 
+        ceoset1.append(i)
+        documents=[]
+    documents=ceoset1+["is „+company+"CEO founder"] porter = PorterStemmer()
+    stop_words = set(stopwords.words('english')) documents1=documents
+for d in documents1:
+    
+##TF-IDF
+results.append(((min((cosine(tf_idf[i].todense(), tf_idf[l-1].todense()), i), minimum)))) ##cosine similarity
+results=sorted(results, reverse=True) 
+for i in results:
+count=count+1
+index.append(results[count][1]) counter=0
+for i in index:
+counter=counter+1 if counter>7:
+break print(documents[i])
+
+
+##TYPE 2:
+
+ count=0
+for i in sample1:
+    if any(x in i.lower() for x in gdp): count=1
+￼count_list.append(count) count=0
+count=0 count_list1=[]
+for i in count_list:
+    count=count+1 if i==1:
+        count_list1.append(count)
+        a=0 ##create updated dataset dataset1=[]
+for i in count_list1:
+    a=int(i) dataset1.append(sample1[a-1])
+    sentence_list=[] for i in dataset1:
+        sentence_list.append(sent_tokenize(i))
+        gdp={"gdp", "gross domestic product"}
+    effect={"affects", "effect of", "depends on", "determined by","increase", "decrease"}
+count=0 count_list1=[]
+for i in sentence_list:
+for j in i:
+if any(x in j.lower() for x in effect) and any(x in j.lower() for x in gdp):
+count=count+1 count_list1.append(count) count=0
+indexlist=[] 
+a=count_list1.index(max(count_list1)) count_list1[a]=0
+indexlist.append(a)
+gdpset=[] 
+for j in sentence_list[i]:
+    if any(x in j.lower() for x in effect) and any(x in j.lower() for x in gdp) and j not in gdpset
+    and any(x in j.lower() for x in percent): gdpset.append(j)
+    gdpset=list(set(gdpset))
+    sentence_list1=list(set(sentence_list1)) 
+documents=[]
+documents=gdpset+["affects increases decreases changes GDP] porter = PorterStemmer()
+stop_words = set(stopwords.words('english'))
+i.lower() not in stop_words] for d in documents ]
+for d in documents:
+for i in tokenize(d.translate(None, string.punctuation)): if i.lower() not in stop_words:
+porter.stem(i.lower())
+results=[]
+index=[]
+tf_idf = TfidfVectorizer().fit_transform(documents) l = len(documents)
+for i in range(l-2):
+    
+##TF-IDF
+minimum = (1, i)
+results.append(((min((cosine(tf_idf[i].todense(), tf_idf[l-1].todense()), i), minimum))))
+results=sorted(results, reverse=True) 
+for i in results:
+    count=count+1
+    index.append(results[count][1]) counter=0
+for i in index:
+    counter=counter+1 if counter>15:
+    break
+print(documents[i]) 
+
+count=0 count_list1=[]
+for i in sentence_list:
+    for j in i:
+        if any(x in j.lower() for x in gdp) and any(x in j.lower() for x in percent):
+            count=count+1 count_list1.append(count) count=0
+    indexlist=[] 
+    a=count_list1.index(max(count_list1)) count_list1[a]=0
+    indexlist.append(a)
+    
+  ##TYPE 3
+  
+words={"rise", "fall", "increase", "decrease", "change"}
+percent={"%", "percent"}
+gdp={"gdp", "gross domestic product"} sentence_list=gdplist
+##Income/Wages/Profit
+number1=input()
+
+feature={"per capita income", "salary", "wages", "standard of living" } #keywords
+gdpset=[]
+for i in indexlist:
+    for j in sentence_list[i]:
+        if j not in gdpset and any(x in j.lower() for x in gdp) and any(x in j.lower() for x in percent) and
+    any(x in j.lower() for x in feature) and any(x in j.lower() for x in words): gdpset.append(j) ##update dataset w sentences containing keywords
+    gdpset=list(set(gdpset))
+   documents=[]
+documents=gdpset+[„profit wages income affect GDP“] #create documents
+documents1=documents for d in documents1:
+    
+for i in tokenize(d.translate(None, string.punctuation)):
+￼if i.lower() not in stop_words: porter.stem(i.lower())
+for d in documents:
+for i in tokenize(d.translate(None, string.punctuation)):
+if i.lower() not in stop_words: porter.stem(i.lower())
+results=[]
+index=[]
+tf_idf = TfidfVectorizer().fit_transform(documents) l = len(documents)
+for i in range(l-2):
+    
+##TF-IDF and cosine similarity to rank
+minimum = (1, i)
+results.append(((min((cosine(tf_idf[i].todense(), tf_idf[l-1].todense()), i), minimum))))
+results=sorted(results, reverse=True) count=-1
+for i in results:
+    count=count+1
+    index.append(results[count][1]) counter=0
+for i in index:
+    counter=counter+1 if counter>10:
+break print(documents[i])
+words={"change", "increase", "decrease", "rise", "fall", "high", "low", "affects" } feature={"tax in", "tax r", "taxpayer","tax bite", "taxes", "tax"} ###keywords gdpset=[]
+for i in indexlist:
+    for j in sentence_list[i]:
+        if any(x in j.lower() for x in feature) and j not in gdpset and any(x in j.lower() for x in gdp) and
+    any(x in j.lower() for x in percent) and any(x in j.lower() for x in words): gdpset.append(j) 
+    gdpset=list(set(gdpset))
+    
+documents=gdpset+["wages affect GDP“] ##create question sentences and append documents
+index=[]
+tf_idf = TfidfVectorizer().fit_transform(documents) l = len(documents)
+for i in range(l-2):
+    minimum = (1, i)
+    results.append(((min((cosine(tf_idf[i].todense(), tf_idf[l-1].todense()), i), minimum))))
+    results=sorted(results, reverse=False) count=-1
+for i in results:
+    count=count+1
+    index.append(results[count][1]) counter=0
+for i in index:
+    counter=counter+1 if counter>10:
+   break print(documents[i])  
+    
+    
